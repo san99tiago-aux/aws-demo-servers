@@ -24,17 +24,11 @@ sudo yum install -y ec2-instance-connect
 echo "----- Initializing CloudWatch Agent -----"
 sudo yum install -y amazon-cloudwatch-agent
 
-# Install git
-yum install -y git
-
-# Create the necessary folders and permissions
-mkdir /home/app
-sudo chmod 775 /home/app
-
-# Clone the CTFd source code
-cd /home/app/
-git clone https://github.com/san99tiago-aux/aws-demo-servers
-cd aws-demo-servers
-
-# Run server (demo)
-bash run_public_server.sh
+# Run server (simple apache to show the server is running)
+yum update -y
+yum install -y httpd.x86_64
+systemctl start httpd.service
+systemctl enable httpd.service
+echo "" > /var/www/html/index.html
+echo "<h1 style='color:blue'>Women In Cloud</h1> " >> /var/www/html/index.html
+echo "<h3>This server IP is --> <span style='color:red'>$(hostname -f)</span></h3>" >> /var/www/html/index.html
